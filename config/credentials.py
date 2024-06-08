@@ -1,0 +1,10 @@
+
+login_url = "https://pruebasautomation.mitiendanube.com/productos/guante-wilson/"
+email = "Pruebas@gmail.com"
+codigo_postal = "1043"
+nombre = "Pruebas"
+apellido = "Chapter"
+calle = "Corrientes"
+numero = "880"
+departamento = "A"
+barrio = "San Nicolas"
