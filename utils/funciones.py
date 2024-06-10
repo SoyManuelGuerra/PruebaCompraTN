@@ -3,11 +3,9 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException,
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys # Importamos la clase Keys para poder usar las teclas especiales
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service as ChromeService
-#driver = webdriver.chrome(executable_path= r"C:\Users\Usuario\Desktop\chromedriver\chromedriver.exe")
 from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.support.relative_locator import locate_with
 from config.credentials import *
 
 class Selectores:
@@ -25,6 +23,12 @@ class Selectores:
     departament_address= (By.ID, "shippingAddress.floor")
     localidad = (By.ID, "shippingAddress.locality")
     continuar_compra = (By.XPATH, "//button[.//span[text()='Continuar para el pago']]")
+    iframe_transferencia = (By.ID, "iFrameResizer0")
+    transferencia_btn = (By.XPATH, "//div[@class='accordion-section-header-content']//div[@class='d-md-inline-block' and text()='Transferencia bancaria']")
+    documento_comprador = (By.ID, "payment.wireTransfer.holderIdNumber")
+    compra_final_btn = (By.XPATH, "btnFinishCheckout")
+
+
 
 class UtilidadesPruebas:
     """
@@ -59,7 +63,7 @@ class UtilidadesPruebas:
             # Espera a que el elemento esté habilitado para hacer click
             WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(elemento))
 
-            #Espera a que el
+            #Mensaje cuando no se encuentran los elementos
             
             return elemento
         except TimeoutException:
@@ -78,8 +82,16 @@ class UtilidadesPruebas:
         print("Haciendo click en el botón iniciar compra")
         click_boton = self.esperar_por_los_elementos(selector_btn)
         click_boton.click()
-        print("Botón iniciar compra")
         print("inicio compra exitosamente!!!!!")
+
+    def cambiar_a_iframe(self, iframe_selector):
+        entrar_iframe = self.esperar_por_los_elementos(iframe_selector)
+        self.driver.switch_to.frame(entrar_iframe)
+        print("Logro entrar al iframe del boton trasnferencias")
+        
+    def salir_del_iframe(self):
+        self.driver.switch_to.default_content()
+        print("Logro salir del iframe")
         
     def ingresar_txt(self, selector, txt):
         """
