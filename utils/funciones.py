@@ -82,7 +82,7 @@ class UtilidadesPruebas:
         print("Haciendo click en el botón iniciar compra")
         click_boton = self.esperar_por_los_elementos(selector_btn)
         click_boton.click()
-        print("inicio compra exitosamente!!!!!")
+        print(f"Hizo click exitosamente en {selector_btn} !!!!!")
 
     def cambiar_a_iframe(self, iframe_selector):
         entrar_iframe = self.esperar_por_los_elementos(iframe_selector)
